@@ -1,3 +1,5 @@
+package week1;
+
 import java.util.*;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -37,7 +39,8 @@ public class FoodManager{
         if(!target.isStored())
             return false;
         else{
-            target.markEaten(date);   // [수정] setStatus/setResolvedDate 직접 호출 → FoodItem.markEaten() 사용 (문제 조건)
+            target.setStatus(FoodItem.STATUS_EATEN);
+            target.setResolvedDate(date);
             return true;
         }
     }
@@ -48,7 +51,8 @@ public class FoodManager{
         if(!target.isStored())
             return false;
         else{
-            target.markDiscarded(date);   // [수정] setStatus/setResolvedDate 직접 호출 → FoodItem.markDiscarded() 사용 (문제 조건)
+            target.setStatus(FoodItem.STATUS_DISCARDED);
+            target.setResolvedDate(date);
             return true;
         }
     }
@@ -59,19 +63,20 @@ public class FoodManager{
     public ArrayList<FoodItem> getNearExpiryItems(LocalDate today, int threshold){
     	//sorting 과정에서 arraylist의 filter기능 및 collect 기능을 이용하기 위해
         //list를 ArrayList형으로 강제형변환 하였음.
-    	// [수정] items.isStored() 조건 추가 → 이미 처리된 항목은 임박 목록에서 제외
-    	return items.stream().filter(items -> items.isStored() && DateCalculator.isNearExpiry(today, items.getExpiryDate(), threshold)==true).collect(Collectors.toCollection(ArrayList::new));
+    	return items.stream().filter(items -> DateCalculator.isNearExpiry(today, items.getExpiryDate(), threshold)==true).collect(Collectors.toCollection(ArrayList::new));
     }
     public int autoDiscardOverdue(LocalDate today, int graceDays) {
     	ArrayList<FoodItem> autoDiscarded = new ArrayList<FoodItem>();
     	for(FoodItem item : items) {
-    		// [수정] item.isStored() 조건 추가 → 이미 다 씀/버림 처리된 항목을 덮어쓰지 않게
-    		if(item.isStored() && DateCalculator.isOverdue(today, item.getExpiryDate(), graceDays)) {
-    			item.markAutoDiscarded(today);   // [수정] setStatus만 하던 것 → markAutoDiscarded(today)로 처리일까지 저장
+    		if(DateCalculator.isOverdue(today, item.getExpiryDate(), graceDays)) {
+    			item.setStatus(FoodItem.STATUS_AUTO_DISCARDED);
     			autoDiscarded.add(item);
     		}
     	}
     	return autoDiscarded.size();
+    }
+    public ArrayList<FoodItem> getAllItems(){
+    	return new ArrayList<FoodItem>(items);
     }
     
 
