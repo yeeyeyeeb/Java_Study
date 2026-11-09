@@ -1,4 +1,3 @@
-
 import java.time.LocalDate;
 
 public class FoodItem {
@@ -16,6 +15,8 @@ public class FoodItem {
 	public static final int STATUS_DISCARDED=2;		//버림
 	public static final int STATUS_AUTO_DISCARDED=3;//자동 폐기
 
+  
+    
 	public FoodItem(String name, String barcode, LocalDate registeredDate, LocalDate expiryDate) {
 		this.name=name;
 		this.barcode=barcode;
@@ -86,4 +87,7 @@ public class FoodItem {
 		if(resolvedDate!=null) s+=", 처리일: "+resolvedDate;
 		return s+")";
 	}
+	
+
+
 }

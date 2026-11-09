@@ -1,4 +1,3 @@
-package com.example.foodzero.util;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 public class ShelfLifeParser {
