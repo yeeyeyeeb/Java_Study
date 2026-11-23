@@ -1,11 +1,8 @@
-package com.example.foodzero.util;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-
-import com.example.foodzero.data.FoodItem;
 
 public class AlertPlanner {
 	public static ArrayList<String> plan(ArrayList<FoodItem> items, LocalDate today, int threshold) {

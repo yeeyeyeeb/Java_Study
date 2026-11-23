@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 
 public class FoodStorage {
+	private static final String HEADER = "status,registeredDate,expiryDate,resolvedDate,barcode,name";
 	public static boolean save(String path, ArrayList<FoodItem> items) {
 	    try {
 	        BufferedWriter bw = new BufferedWriter(
@@ -17,7 +18,7 @@ public class FoodStorage {
 	    
 	        for(FoodItem item:items) {
 	        	
-	        	String line = item.getstatus()+"," +
+	        	String line = item.getStatus()+"," +
 	        			item.getRegisteredDate()+"," +
 	        			item.getExpiryDate()+"," +
 	        			((item.getResolvedDate()==null)?"":item.getResolvedDate())+"," +
